@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="vue\FrmAbsences.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="vue\FrmAbsences.Designer.cs">
+      <DependentUpon>FrmAbsences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vue\FrmGestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vue\FrmGestion.Designer.cs">
+      <DependentUpon>FrmGestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vue\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vue\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +75,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="vue\FrmAbsences.resx">
+      <DependentUpon>FrmAbsences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vue\FrmGestion.resx">
+      <DependentUpon>FrmGestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vue\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,7 +100,6 @@
   <ItemGroup>
     <Folder Include="controleur\" />
     <Folder Include="modele\" />
-    <Folder Include="vue\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
