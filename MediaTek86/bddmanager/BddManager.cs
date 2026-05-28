@@ -68,6 +68,27 @@ namespace MediaTek86.bddmanager
         }
 
         /// <summary>
+        /// Exécute une requête SQL de type INSERT, UPDATE ou DELETE (Action).
+        /// </summary>
+        /// <param name="req">La requête SQL à exécuter.</param>
+        /// <param name="parametres">Dictionnaire des paramètres (clé, valeur).</param>
+        public void ReqUpdate(string req, Dictionary<string, object> parametres)
+        {
+            MySqlCommand command = new MySqlCommand(req, connection);
+
+            if (parametres != null)
+            {
+                foreach (KeyValuePair<string, object> param in parametres)
+                {
+                    command.Parameters.AddWithValue(param.Key, param.Value);
+                }
+            }
+
+            // ExecuteNonQuery est utilisé pour les requêtes qui ne renvoient pas de tableau de résultats
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
         /// Ferme la connexion à la base de données si elle est ouverte.
         /// </summary>
         public void CloseConnection()
