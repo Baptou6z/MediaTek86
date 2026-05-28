@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using MySql.Data.MySqlClient;
+﻿using MediaTek86.bddmanager;
 using MediaTek86.modele;
-using MediaTek86.bddmanager;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace MediaTek86.dal
 {
@@ -23,26 +24,33 @@ namespace MediaTek86.dal
             string req = "SELECT * FROM responsable WHERE login = @login";
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@login", login);
+
+            MySqlDataReader reader = null; // Déclarer ici
             try
             {
                 bdd.OpenConnection();
-                MySqlDataReader reader = bdd.ReqSelect(req, parameters);
+                reader = bdd.ReqSelect(req, parameters);
                 if (reader.Read())
                 {
                     resp = new Responsable(
-                        (int)reader["idresponsable"],
+                        0,
                         reader["login"].ToString(),
                         reader["pwd"].ToString()
                     );
                 }
-                reader.Close();
             }
             catch (Exception e)
             {
-                System.Console.WriteLine(e.Message);
+                MessageBox.Show("Erreur SQL : " + e.Message); // Utilise MessageBox pour voir l'erreur à l'écran
             }
-            bdd.CloseConnection();
+            finally
+            {
+                if (reader != null) reader.Close();
+                bdd.CloseConnection();
+            }
             return resp;
         }
     }
 }
+
+     

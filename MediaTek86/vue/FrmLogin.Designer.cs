@@ -76,6 +76,7 @@
             this.btnSeConnecter.TabIndex = 4;
             this.btnSeConnecter.Text = "Se connecter";
             this.btnSeConnecter.UseVisualStyleBackColor = true;
+            this.btnSeConnecter.Click += new System.EventHandler(this.btnSeConnecter_Click);
             // 
             // FrmLogin
             // 

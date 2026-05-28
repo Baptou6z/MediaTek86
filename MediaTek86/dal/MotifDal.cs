@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using MediaTek86.modele;
 using MediaTek86.bddmanager;
@@ -12,29 +11,28 @@ namespace MediaTek86.dal
     public class MotifDal
     {
         /// <summary>
-        /// Récupère tous les motifs d'absence
+        /// Récupère tous les motifs d'absence.
         /// </summary>
-        /// <returns>Une liste d'objets Motif</returns>
+        /// <returns>Une liste d'objets Motif.</returns>
         public static List<Motif> GetLesMotifs()
         {
             List<Motif> lesMotifs = new List<Motif>();
-            BddManager bdd = BddManager.GetInstance();
             string req = "SELECT * FROM motif";
-            try
+            BddManager bdd = BddManager.GetInstance();
+
+            bdd.OpenConnection();
+            MySqlDataReader reader = bdd.ReqSelect(req, null);
+
+            while (reader.Read())
             {
-                bdd.OpenConnection();
-                MySqlDataReader reader = bdd.ReqSelect(req, null);
-                while (reader.Read())
-                {
-                    Motif m = new Motif((int)reader["idmotif"], reader["libelle"].ToString());
-                    lesMotifs.Add(m);
-                }
-                reader.Close();
+                Motif motif = new Motif(
+                    (int)reader["idmotif"],
+                    (string)reader["libelle"]
+                );
+                lesMotifs.Add(motif);
             }
-            catch (Exception e)
-            {
-                System.Console.WriteLine(e.Message);
-            }
+
+            reader.Close();
             bdd.CloseConnection();
             return lesMotifs;
         }

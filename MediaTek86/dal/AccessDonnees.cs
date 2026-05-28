@@ -17,7 +17,7 @@ namespace MediaTek86.dal
         /// <returns>La chaîne de connexion sous forme de string.</returns>
         public static string GetConnectionString()
         {
-            return "server=localhost;user id=root;password=;database=mediatek86;sslmode=none";
+            return "server=localhost;user id=root;password=;database=mediatek86;";
         }
     }
 }

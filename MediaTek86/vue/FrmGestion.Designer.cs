@@ -153,9 +153,9 @@
             // 
             // btnAbsences
             // 
-            this.btnAbsences.Location = new System.Drawing.Point(104, 204);
+            this.btnAbsences.Location = new System.Drawing.Point(73, 204);
             this.btnAbsences.Name = "btnAbsences";
-            this.btnAbsences.Size = new System.Drawing.Size(75, 23);
+            this.btnAbsences.Size = new System.Drawing.Size(142, 23);
             this.btnAbsences.TabIndex = 9;
             this.btnAbsences.Text = "Gérer les absences";
             this.btnAbsences.UseVisualStyleBackColor = true;
@@ -169,6 +169,7 @@
             this.Controls.Add(this.dgvPersonnel);
             this.Name = "FrmGestion";
             this.Text = "FrmGestion";
+            this.Load += new System.EventHandler(this.FrmGestion_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersonnel)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

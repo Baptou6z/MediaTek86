@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MediaTek86.modele;            // Pour utiliser la classe Responsable
+using MediaTek86.dal;               // Pour utiliser ResponsableDal
+using MediaTek86.vue;               // Pour utiliser FrmGestion
 
 namespace MediaTek86
 {
@@ -16,11 +12,40 @@ namespace MediaTek86
     public partial class FrmLogin : Form
     {
         /// <summary>
-        /// Initialise une nouvelle instance de la fenêtre FrmLogin.
+        /// Initialise une nouvelle instance de la classe FrmLogin.
         /// </summary>
         public FrmLogin()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Événement lors du clic sur le bouton de connexion.
+        /// </summary>
+        private void btnSeConnecter_Click(object sender, EventArgs e)
+        {
+            // 1. Récupération du responsable
+            Responsable resp = ResponsableDal.GetResponsableByLogin(txbLogin.Text);
+
+            if (resp != null)
+            {
+                // 2. Vérification directe (puisque le mdp en base est maintenant en clair)
+                // On utilise .Trim() pour ignorer les espaces accidentels dans la base
+                if (resp.Pwd.Trim() == txbPwd.Text.Trim())
+                {
+                    FrmGestion frm = new FrmGestion();
+                    frm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Le mot de passe ne correspond pas. \nBase : " + resp.Pwd + "\nSaisi : " + txbPwd.Text);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Identifiant introuvable.");
+            }
         }
     }
 }
