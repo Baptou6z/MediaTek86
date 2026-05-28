@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaTek86</name>
+    </assembly>
+    <members>
+        <member name="T:MediaTek86.bddmanager.BddManager">
+            <summary>
+            Classe Singleton permettant de gérer la connexion à la base de données MySQL.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.#ctor">
+            <summary>
+            Constructeur privé pour le pattern Singleton.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.GetInstance">
+            <summary>
+            Retourne l'instance unique de BddManager.
+            </summary>
+            <returns>L'instance unique de BddManager.</returns>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.OpenConnection">
+            <summary>
+            Ouvre la connexion à la base de données si elle est fermée.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.ReqSelect(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Exécute une requête SQL de type SELECT.
+            </summary>
+            <param name="req">La requête SQL à exécuter.</param>
+            <param name="parametres">Dictionnaire des paramètres (clé, valeur).</param>
+            <returns>Un lecteur de données (MySqlDataReader) pour parcourir les résultats.</returns>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.CloseConnection">
+            <summary>
+            Ferme la connexion à la base de données si elle est ouverte.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.bddmanager.BddManager.GetConnection">
+            <summary>
+            Retourne l'objet de connexion MySqlConnection courant.
+            </summary>
+            <returns>L'objet MySqlConnection.</returns>
+        </member>
+        <member name="T:MediaTek86.dal.AbsenceDal">
+            <summary>
+            Classe d'accès aux données pour les objets Absence.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.AbsenceDal.GetLesAbsences">
+            <summary>
+            Récupère toutes les absences de la base de données
+            </summary>
+            <returns>Une liste d'objets Absence</returns>
+        </member>
+        <member name="T:MediaTek86.dal.AccessDonnees">
+            <summary>
+            Classe utilitaire permettant de récupérer la chaîne de connexion à la base de données.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.AccessDonnees.GetConnectionString">
+            <summary>
+            Retourne la chaîne de connexion configurée pour la base MySQL.
+            </summary>
+            <returns>La chaîne de connexion sous forme de string.</returns>
+        </member>
+        <member name="T:MediaTek86.dal.MotifDal">
+            <summary>
+            Classe d'accès aux données pour les objets Motif.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.MotifDal.GetLesMotifs">
+            <summary>
+            Récupère tous les motifs d'absence
+            </summary>
+            <returns>Une liste d'objets Motif</returns>
+        </member>
+        <member name="T:MediaTek86.dal.PersonnelDal">
+            <summary>
+            Classe d'accès aux données pour les objets Personnel.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.PersonnelDal.GetLesPersonnels">
+            <summary>
+            Récupère tous les employés de la base de données
+            </summary>
+            <returns>Une liste d'objets Personnel</returns>
+        </member>
+        <member name="T:MediaTek86.dal.ResponsableDal">
+            <summary>
+            Classe d'accès aux données pour les objets Responsable.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.ResponsableDal.GetResponsableByLogin(System.String)">
+            <summary>
+            Récupère un responsable par son login
+            </summary>
+            <param name="login">Le login du responsable</param>
+            <returns>Un objet Responsable ou null si non trouvé</returns>
+        </member>
+        <member name="T:MediaTek86.dal.ServiceDal">
+            <summary>
+            Classe d'accès aux données pour les objets Service.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.dal.ServiceDal.GetLesServices">
+            <summary>
+            Récupère tous les services
+            </summary>
+            <returns>Une liste d'objets Service</returns>
+        </member>
+        <member name="T:MediaTek86.modele.Absence">
+            <summary>
+            Représente une absence dans l'entreprise.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Absence.Idpersonnel">
+            <summary>
+            Identifiant du personnel.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Absence.DateDebut">
+            <summary>
+            Date de début de l'absence.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Absence.DateFin">
+            <summary>
+            Date de fin de l'absence.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Absence.Idmotif">
+            <summary>
+            Identifiant du motif d'absence.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.modele.Absence.#ctor(System.Int32,System.DateTime,System.DateTime,System.Int32)">
+            <summary>
+            Constructeur de la classe Absence.
+            </summary>
+            <param name="idpersonnel">Identifiant du personnel.</param>
+            <param name="dateDebut">Date de début.</param>
+            <param name="dateFin">Date de fin.</param>
+            <param name="idmotif">Identifiant du motif.</param>
+        </member>
+        <member name="T:MediaTek86.modele.Motif">
+            <summary>
+            Représente un motif d'absence.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Motif.Idmotif">
+            <summary>
+            Identifiant unique du motif.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Motif.Libelle">
+            <summary>
+            Libellé descriptif du motif (ex: Maladie, Congés).
+            </summary>
+        </member>
+        <member name="M:MediaTek86.modele.Motif.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructeur de la classe Motif.
+            </summary>
+            <param name="idmotif">Identifiant.</param>
+            <param name="libelle">Libellé du motif.</param>
+        </member>
+        <member name="T:MediaTek86.modele.Personnel">
+            <summary>
+            Représente un membre du personnel de l'entreprise.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Idpersonnel">
+            <summary>
+            Identifiant unique du personnel.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Nom">
+            <summary>
+            Nom de famille du membre du personnel.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Prenom">
+            <summary>
+            Prénom du membre du personnel.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Tel">
+            <summary>
+            Numéro de téléphone.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Mail">
+            <summary>
+            Adresse email.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Personnel.Idservice">
+            <summary>
+            Identifiant du service auquel appartient le membre du personnel.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.modele.Personnel.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Constructeur de la classe Personnel.
+            </summary>
+            <param name="idpersonnel">Identifiant.</param>
+            <param name="nom">Nom.</param>
+            <param name="prenom">Prénom.</param>
+            <param name="tel">Téléphone.</param>
+            <param name="mail">Email.</param>
+            <param name="idservice">Id du service.</param>
+        </member>
+        <member name="T:MediaTek86.modele.Responsable">
+            <summary>
+            Représente un responsable ayant accès à l'application.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Responsable.Idresponsable">
+            <summary>
+            Identifiant unique du responsable.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Responsable.Login">
+            <summary>
+            Login utilisé par le responsable pour se connecter.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Responsable.Pwd">
+            <summary>
+            Mot de passe du responsable.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.modele.Responsable.#ctor(System.Int32,System.String,System.String)">
+            <summary>
+            Constructeur de la classe Responsable.
+            </summary>
+            <param name="idresponsable">Identifiant.</param>
+            <param name="login">Login de connexion.</param>
+            <param name="pwd">Mot de passe.</param>
+        </member>
+        <member name="T:MediaTek86.modele.Service">
+            <summary>
+            Représente un service dans l'entreprise.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Service.Idservice">
+            <summary>
+            Identifiant unique du service.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.modele.Service.Libelle">
+            <summary>
+            Libellé descriptif du service (ex: Informatique, RH).
+            </summary>
+        </member>
+        <member name="M:MediaTek86.modele.Service.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructeur de la classe Service.
+            </summary>
+            <param name="idservice">Identifiant.</param>
+            <param name="libelle">Libellé du service.</param>
+        </member>
+        <member name="T:MediaTek86.vue.FrmAbsences">
+            <summary>
+            Fenêtre de gestion des absences du personnel.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.vue.FrmAbsences.#ctor">
+            <summary>
+            Initialise une nouvelle instance de la fenêtre FrmAbsences.
+            </summary>
+        </member>
+        <member name="F:MediaTek86.vue.FrmAbsences.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.vue.FrmAbsences.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MediaTek86.vue.FrmAbsences.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MediaTek86.vue.FrmGestion">
+            <summary>
+            Fenêtre principale de gestion de l'application.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.vue.FrmGestion.#ctor">
+            <summary>
+            Initialise une nouvelle instance de la fenêtre FrmGestion.
+            </summary>
+        </member>
+        <member name="F:MediaTek86.vue.FrmGestion.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.vue.FrmGestion.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:MediaTek86.vue.FrmGestion.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:MediaTek86.FrmLogin">
+            <summary>
+            Fenêtre de connexion au logiciel.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.FrmLogin.#ctor">
+            <summary>
+            Initialise une nouvelle instance de la fenêtre FrmLogin.
+            </summary>
+        </member>
+        <member name="F:MediaTek86.FrmLogin.components">
+            <summary>
+            Variable nécessaire au concepteur.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.FrmLogin.Dispose(System.Boolean)">
+            <summary>
+            Nettoyage des ressources utilisées.
+            </summary>
+            <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        </member>
+        <member name="M:MediaTek86.FrmLogin.InitializeComponent">
+            <summary>
+            Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+            le contenu de cette méthode avec l'éditeur de code.
+            </summary>
+        </member>
+        <member name="M:MediaTek86.Program.Main">
+            <summary>
+            Point d'entrée principal de l'application.
+            </summary>
+        </member>
+        <member name="T:MediaTek86.Properties.Resources">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.Properties.Resources.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:MediaTek86.Properties.Resources.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+    </members>
+</doc>
