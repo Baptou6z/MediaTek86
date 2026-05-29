@@ -108,5 +108,38 @@ namespace MediaTek86.dal
                 bdd.CloseConnection();
             }
         }
+        /// <summary>
+        /// Modifie les informations d'un employé dans la base de données.
+        /// </summary>
+        /// <param name="p">L'objet Personnel contenant les informations modifiées</param>
+        public static void UpdatePersonnel(Personnel p)
+        {
+            BddManager bdd = BddManager.GetInstance();
+
+            // La requête SQL UPDATE. On utilise l'ID pour savoir quelle ligne modifier.
+            string req = "UPDATE personnel SET nom = @nom, prenom = @prenom, tel = @tel, mail = @mail, idservice = @idservice WHERE idpersonnel = @id";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@nom", p.Nom);
+            parameters.Add("@prenom", p.Prenom);
+            parameters.Add("@tel", p.Tel);
+            parameters.Add("@mail", p.Mail);
+            parameters.Add("@idservice", p.Idservice);
+            parameters.Add("@id", p.Idpersonnel); // L'identifiant est crucial ici !
+
+            try
+            {
+                bdd.OpenConnection();
+                bdd.ReqUpdate(req, parameters);
+            }
+            catch (System.Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Erreur lors de la modification : " + e.Message);
+            }
+            finally
+            {
+                bdd.CloseConnection();
+            }
+        }
     }
 }

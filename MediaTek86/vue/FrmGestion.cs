@@ -87,5 +87,60 @@ namespace MediaTek86.vue
                 MessageBox.Show("Veuillez sélectionner une ligne dans le tableau.");
             }
         }
+
+        private void dgvPersonnel_SelectionChanged(object sender, EventArgs e)
+        {
+            // On vérifie qu'une ligne est bien sélectionnée
+            if (dgvPersonnel.SelectedRows.Count > 0)
+            {
+                // On récupère l'employé sélectionné
+                Personnel p = (Personnel)dgvPersonnel.SelectedRows[0].DataBoundItem;
+
+                // On remplit les TextBox avec ses informations
+                txbNom.Text = p.Nom;
+                txbPrenom.Text = p.Prenom;
+                txbTel.Text = p.Tel;
+                txbMail.Text = p.Mail;
+            }
+        }
+
+        private void btnModifier_Click(object sender, EventArgs e)
+        {
+            // 1. On vérifie qu'une ligne est sélectionnée dans le tableau
+            if (dgvPersonnel.SelectedRows.Count > 0)
+            {
+                // 2. On vérifie que les champs obligatoires ne sont pas vides
+                if (txbNom.Text != "" && txbPrenom.Text != "")
+                {
+                    // 3. On récupère l'ID de l'employé en cours de modification
+                    Personnel pSelectionne = (Personnel)dgvPersonnel.SelectedRows[0].DataBoundItem;
+                    int idEmploye = pSelectionne.Idpersonnel;
+
+                    // 4. On crée un nouvel objet métier avec les nouvelles informations des TextBox
+                    // Toujours avec le service à 1 temporairement
+                    Personnel personnelModifie = new Personnel(idEmploye, txbNom.Text, txbPrenom.Text, txbTel.Text, txbMail.Text, 1);
+
+                    // 5. On appelle la méthode Update de la DAL
+                    PersonnelDal.UpdatePersonnel(personnelModifie);
+
+                    // 6. On met à jour l'affichage
+                    RemplirListePersonnel();
+
+                    // 7. On vide les cases (optionnel mais plus propre)
+                    txbNom.Text = "";
+                    txbPrenom.Text = "";
+                    txbTel.Text = "";
+                    txbMail.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez renseigner au moins le nom et le prénom.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un employé à modifier.");
+            }
+        }
     }
 }
