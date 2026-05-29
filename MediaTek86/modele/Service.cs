@@ -1,29 +1,25 @@
 ﻿namespace MediaTek86.modele
 {
     /// <summary>
-    /// Représente un service dans l'entreprise.
+    /// Classe métier représentant un Service de l'entreprise.
     /// </summary>
     public class Service
     {
-        /// <summary>
-        /// Identifiant unique du service.
-        /// </summary>
-        public int Idservice { get; set; }
+        public int Idservice { get; }
+        public string Nom { get; }
 
-        /// <summary>
-        /// Libellé descriptif du service (ex: Informatique, RH).
-        /// </summary>
-        public string Libelle { get; set; }
-
-        /// <summary>
-        /// Constructeur de la classe Service.
-        /// </summary>
-        /// <param name="idservice">Identifiant.</param>
-        /// <param name="libelle">Libellé du service.</param>
-        public Service(int idservice, string libelle)
+        public Service(int idservice, string nom)
         {
-            Idservice = idservice;
-            Libelle = libelle;
+            this.Idservice = idservice;
+            this.Nom = nom;
+        }
+
+        /// <summary>
+        /// Définit ce qui s'affichera par défaut dans la ComboBox
+        /// </summary>
+        public override string ToString()
+        {
+            return this.Nom;
         }
     }
 }

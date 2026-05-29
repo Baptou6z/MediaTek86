@@ -17,6 +17,7 @@ namespace MediaTek86.vue
 
         private void FrmGestion_Load(object sender, EventArgs e)
         {
+            RemplirComboBoxServices();
             RemplirListePersonnel();
         }
 
@@ -29,6 +30,17 @@ namespace MediaTek86.vue
             dgvPersonnel.DataSource = lesPersonnels;
         }
 
+        private void RemplirComboBoxServices()
+        {
+            // On récupère la liste des services depuis la DAL
+            List<Service> lesServices = ServiceDal.GetLesServices();
+
+            // On l'injecte dans la liste déroulante
+            cbxService.DataSource = lesServices;
+            cbxService.DisplayMember = "Nom";      // Ce que l'utilisateur voit (ex: "Administratif")
+            cbxService.ValueMember = "Idservice";  // Ce que le code utilise (ex: "1")
+        }
+
         /// <summary>
         /// Événement au clic sur le bouton Ajouter.
         /// </summary>
@@ -37,11 +49,11 @@ namespace MediaTek86.vue
             // 1. On vérifie que les champs obligatoires ne sont pas vides
             if (txbNom.Text != "" && txbPrenom.Text != "")
             {
-                // Note : On met "1" par défaut pour le service en attendant de coder la liste déroulante (ComboBox)
-                int idServiceTemp = 1;
+                // On récupère le vrai ID du service sélectionné dans la liste déroulante
+                int idServiceSelectionne = (int)cbxService.SelectedValue;
 
                 // 2. On crée un nouvel objet métier Personnel avec les données tapées dans les cases
-                Personnel nouveauPersonnel = new Personnel(0, txbNom.Text, txbPrenom.Text, txbTel.Text, txbMail.Text, idServiceTemp);
+                Personnel nouveauPersonnel = new Personnel(0, txbNom.Text, txbPrenom.Text, txbTel.Text, txbMail.Text, idServiceSelectionne);
 
                 // 3. On envoie l'objet à la DAL pour l'insérer dans la base
                 PersonnelDal.AddPersonnel(nouveauPersonnel);
@@ -101,6 +113,9 @@ namespace MediaTek86.vue
                 txbPrenom.Text = p.Prenom;
                 txbTel.Text = p.Tel;
                 txbMail.Text = p.Mail;
+
+                // On sélectionne le bon service dans la liste déroulante
+                cbxService.SelectedValue = p.Idservice;
             }
         }
 
@@ -116,9 +131,11 @@ namespace MediaTek86.vue
                     Personnel pSelectionne = (Personnel)dgvPersonnel.SelectedRows[0].DataBoundItem;
                     int idEmploye = pSelectionne.Idpersonnel;
 
+                    // On récupère le vrai ID du service sélectionné dans la liste déroulante
+                    int idServiceSelectionne = (int)cbxService.SelectedValue;
+
                     // 4. On crée un nouvel objet métier avec les nouvelles informations des TextBox
-                    // Toujours avec le service à 1 temporairement
-                    Personnel personnelModifie = new Personnel(idEmploye, txbNom.Text, txbPrenom.Text, txbTel.Text, txbMail.Text, 1);
+                    Personnel personnelModifie = new Personnel(idEmploye, txbNom.Text, txbPrenom.Text, txbTel.Text, txbMail.Text, idServiceSelectionne);
 
                     // 5. On appelle la méthode Update de la DAL
                     PersonnelDal.UpdatePersonnel(personnelModifie);
@@ -140,6 +157,26 @@ namespace MediaTek86.vue
             else
             {
                 MessageBox.Show("Veuillez sélectionner un employé à modifier.");
+            }
+        }
+
+        private void btnAbsences_Click(object sender, EventArgs e)
+        {
+            // 1. On vérifie qu'un employé est bien sélectionné dans le tableau
+            if (dgvPersonnel.SelectedRows.Count > 0)
+            {
+                // 2. On récupère l'employé sélectionné
+                Personnel pSelectionne = (Personnel)dgvPersonnel.SelectedRows[0].DataBoundItem;
+
+                // 3. On ouvre la fenêtre des absences en lui "envoyant" l'employé sélectionné
+                FrmAbsences frmAbsences = new FrmAbsences(pSelectionne);
+
+                // ShowDialog() permet d'ouvrir la fenêtre par-dessus l'autre et de bloquer la fenêtre principale
+                frmAbsences.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un employé pour gérer ses absences.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

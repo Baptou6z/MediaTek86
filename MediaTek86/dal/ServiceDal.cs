@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using MediaTek86.modele;
 using MediaTek86.bddmanager;
@@ -12,30 +11,35 @@ namespace MediaTek86.dal
     public class ServiceDal
     {
         /// <summary>
-        /// Récupère tous les services
+        /// Récupère tous les services de la base de données.
         /// </summary>
-        /// <returns>Une liste d'objets Service</returns>
         public static List<Service> GetLesServices()
         {
             List<Service> lesServices = new List<Service>();
             BddManager bdd = BddManager.GetInstance();
             string req = "SELECT * FROM service";
+
             try
             {
                 bdd.OpenConnection();
                 MySqlDataReader reader = bdd.ReqSelect(req, null);
                 while (reader.Read())
                 {
-                    Service s = new Service((int)reader["idservice"], reader["libelle"].ToString());
+                    // On crée l'objet Service avec l'ID et le Nom de la BDD
+                    Service s = new Service((int)reader["idservice"], reader["nom"].ToString());
                     lesServices.Add(s);
                 }
                 reader.Close();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                System.Console.WriteLine(e.Message);
+                System.Windows.Forms.MessageBox.Show("Erreur SQL (Service) : " + e.Message);
             }
-            bdd.CloseConnection();
+            finally
+            {
+                bdd.CloseConnection();
+            }
+
             return lesServices;
         }
     }

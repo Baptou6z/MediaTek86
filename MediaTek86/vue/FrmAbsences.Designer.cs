@@ -31,15 +31,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvAbsences = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dtpDebut = new System.Windows.Forms.DateTimePicker();
-            this.dtpFin = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbxMotif = new System.Windows.Forms.ComboBox();
-            this.btnAjouter = new System.Windows.Forms.Button();
-            this.btnModifier = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
+            this.btnAjouter = new System.Windows.Forms.Button();
+            this.cbxMotif = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dtpFin = new System.Windows.Forms.DateTimePicker();
+            this.dtpDebut = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsences)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -79,63 +79,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gérer une absence";
             // 
-            // label2
+            // btnSupprimer
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Date de début";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Date de fin";
-            // 
-            // dtpDebut
-            // 
-            this.dtpDebut.Location = new System.Drawing.Point(107, 30);
-            this.dtpDebut.Name = "dtpDebut";
-            this.dtpDebut.Size = new System.Drawing.Size(200, 20);
-            this.dtpDebut.TabIndex = 2;
-            // 
-            // dtpFin
-            // 
-            this.dtpFin.Location = new System.Drawing.Point(107, 76);
-            this.dtpFin.Name = "dtpFin";
-            this.dtpFin.Size = new System.Drawing.Size(200, 20);
-            this.dtpFin.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 115);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(30, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Motif";
-            // 
-            // cbxMotif
-            // 
-            this.cbxMotif.FormattingEnabled = true;
-            this.cbxMotif.Location = new System.Drawing.Point(107, 115);
-            this.cbxMotif.Name = "cbxMotif";
-            this.cbxMotif.Size = new System.Drawing.Size(121, 21);
-            this.cbxMotif.TabIndex = 5;
-            // 
-            // btnAjouter
-            // 
-            this.btnAjouter.Location = new System.Drawing.Point(28, 169);
-            this.btnAjouter.Name = "btnAjouter";
-            this.btnAjouter.Size = new System.Drawing.Size(75, 23);
-            this.btnAjouter.TabIndex = 6;
-            this.btnAjouter.Text = "Ajouter";
-            this.btnAjouter.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Location = new System.Drawing.Point(264, 169);
+            this.btnSupprimer.Name = "btnSupprimer";
+            this.btnSupprimer.Size = new System.Drawing.Size(75, 23);
+            this.btnSupprimer.TabIndex = 8;
+            this.btnSupprimer.Text = "Supprimer";
+            this.btnSupprimer.UseVisualStyleBackColor = true;
             // 
             // btnModifier
             // 
@@ -146,14 +97,64 @@
             this.btnModifier.Text = "Modifier";
             this.btnModifier.UseVisualStyleBackColor = true;
             // 
-            // btnSupprimer
+            // btnAjouter
             // 
-            this.btnSupprimer.Location = new System.Drawing.Point(264, 169);
-            this.btnSupprimer.Name = "btnSupprimer";
-            this.btnSupprimer.Size = new System.Drawing.Size(75, 23);
-            this.btnSupprimer.TabIndex = 8;
-            this.btnSupprimer.Text = "Supprimer";
-            this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnAjouter.Location = new System.Drawing.Point(28, 169);
+            this.btnAjouter.Name = "btnAjouter";
+            this.btnAjouter.Size = new System.Drawing.Size(75, 23);
+            this.btnAjouter.TabIndex = 6;
+            this.btnAjouter.Text = "Ajouter";
+            this.btnAjouter.UseVisualStyleBackColor = true;
+            this.btnAjouter.Click += new System.EventHandler(this.btnAjouter_Click);
+            // 
+            // cbxMotif
+            // 
+            this.cbxMotif.FormattingEnabled = true;
+            this.cbxMotif.Location = new System.Drawing.Point(107, 115);
+            this.cbxMotif.Name = "cbxMotif";
+            this.cbxMotif.Size = new System.Drawing.Size(121, 21);
+            this.cbxMotif.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(25, 115);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Motif";
+            // 
+            // dtpFin
+            // 
+            this.dtpFin.Location = new System.Drawing.Point(107, 76);
+            this.dtpFin.Name = "dtpFin";
+            this.dtpFin.Size = new System.Drawing.Size(200, 20);
+            this.dtpFin.TabIndex = 3;
+            // 
+            // dtpDebut
+            // 
+            this.dtpDebut.Location = new System.Drawing.Point(107, 30);
+            this.dtpDebut.Name = "dtpDebut";
+            this.dtpDebut.Size = new System.Drawing.Size(200, 20);
+            this.dtpDebut.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Date de fin";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Date de début";
             // 
             // FrmAbsences
             // 
@@ -165,6 +166,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmAbsences";
             this.Text = "FrmAbsences";
+            this.Load += new System.EventHandler(this.FrmAbsences_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsences)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
