@@ -81,5 +81,67 @@ namespace MediaTek86.dal
                 bdd.CloseConnection();
             }
         }
+        /// <summary>
+        /// Supprime une absence de la base de données.
+        /// </summary>
+        /// <param name="a">L'objet Absence à supprimer</param>
+        public static void DeleteAbsence(Absence a)
+        {
+            BddManager bdd = BddManager.GetInstance();
+
+            // On utilise l'ID du personnel ET la date de début pour cibler la bonne ligne
+            string req = "DELETE FROM absence WHERE idpersonnel = @idpersonnel AND datedebut = @datedebut";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@idpersonnel", a.Idpersonnel);
+            parameters.Add("@datedebut", a.DateDebut.ToString("yyyy-MM-dd"));
+
+            try
+            {
+                bdd.OpenConnection();
+                bdd.ReqUpdate(req, parameters);
+            }
+            catch (System.Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Erreur SQL (Suppression Absence) : " + e.Message, "Erreur", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bdd.CloseConnection();
+            }
+        }
+        /// <summary>
+        /// Modifie une absence existante dans la base de données.
+        /// </summary>
+        /// <param name="absenceModifiee">L'objet Absence avec les nouvelles données</param>
+        /// <param name="ancienneDateDebut">La date de début originale pour trouver la ligne à modifier</param>
+        public static void UpdateAbsence(Absence absenceModifiee, DateTime ancienneDateDebut)
+        {
+            BddManager bdd = BddManager.GetInstance();
+
+            // On met à jour les données, en ciblant l'employé et son ancienne date de début
+            string req = "UPDATE absence SET datedebut = @nouvelleDateDebut, datefin = @datefin, idmotif = @idmotif WHERE idpersonnel = @idpersonnel AND datedebut = @ancienneDateDebut";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@idpersonnel", absenceModifiee.Idpersonnel);
+            parameters.Add("@nouvelleDateDebut", absenceModifiee.DateDebut.ToString("yyyy-MM-dd"));
+            parameters.Add("@datefin", absenceModifiee.DateFin.ToString("yyyy-MM-dd"));
+            parameters.Add("@idmotif", absenceModifiee.Idmotif);
+            parameters.Add("@ancienneDateDebut", ancienneDateDebut.ToString("yyyy-MM-dd"));
+
+            try
+            {
+                bdd.OpenConnection();
+                bdd.ReqUpdate(req, parameters);
+            }
+            catch (System.Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Erreur SQL (Modification Absence) : " + e.Message, "Erreur", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bdd.CloseConnection();
+            }
+        }
     }
 }

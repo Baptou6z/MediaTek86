@@ -60,6 +60,7 @@
             this.dgvAbsences.Name = "dgvAbsences";
             this.dgvAbsences.Size = new System.Drawing.Size(321, 393);
             this.dgvAbsences.TabIndex = 1;
+            this.dgvAbsences.SelectionChanged += new System.EventHandler(this.dgvAbsences_SelectionChanged);
             // 
             // groupBox1
             // 
@@ -87,6 +88,7 @@
             this.btnSupprimer.TabIndex = 8;
             this.btnSupprimer.Text = "Supprimer";
             this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
             // 
             // btnModifier
             // 
@@ -96,6 +98,7 @@
             this.btnModifier.TabIndex = 7;
             this.btnModifier.Text = "Modifier";
             this.btnModifier.UseVisualStyleBackColor = true;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
             // 
             // btnAjouter
             // 

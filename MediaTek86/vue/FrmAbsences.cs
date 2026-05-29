@@ -76,5 +76,82 @@ namespace MediaTek86.vue
                 MessageBox.Show("La date de fin ne peut pas être antérieure à la date de début.", "Erreur de saisie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            // 1. Vérifier qu'une ligne est bien sélectionnée dans le tableau des absences
+            if (dgvAbsences.SelectedRows.Count > 0)
+            {
+                // 2. Demander confirmation avant de supprimer
+                DialogResult confirmation = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette absence ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmation == DialogResult.Yes)
+                {
+                    // 3. Récupérer l'absence sélectionnée
+                    Absence absenceSelectionnee = (Absence)dgvAbsences.SelectedRows[0].DataBoundItem;
+
+                    // 4. Appeler la méthode de suppression de la DAL
+                    AbsenceDal.DeleteAbsence(absenceSelectionnee);
+
+                    // 5. Rafraîchir le tableau
+                    RemplirListeAbsences();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une absence dans le tableau.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void dgvAbsences_SelectionChanged(object sender, EventArgs e)
+        {
+            // On vérifie qu'une ligne est sélectionnée
+            if (dgvAbsences.SelectedRows.Count > 0)
+            {
+                // On récupère l'absence cliquée
+                Absence a = (Absence)dgvAbsences.SelectedRows[0].DataBoundItem;
+
+                // On met à jour les champs de l'interface
+                dtpDebut.Value = a.DateDebut;
+                dtpFin.Value = a.DateFin;
+                cbxMotif.SelectedValue = a.Idmotif;
+            }
+        }
+
+        private void btnModifier_Click(object sender, EventArgs e)
+        {
+            // 1.On vérifie qu'une ligne est bien sélectionnée
+            if (dgvAbsences.SelectedRows.Count > 0)
+            {
+                // 2. On mémorise l'ancienne date de début à partir du tableau
+                Absence ancienneAbsence = (Absence)dgvAbsences.SelectedRows[0].DataBoundItem;
+                DateTime ancienneDateDebut = ancienneAbsence.DateDebut;
+
+                // 3. On récupère les nouvelles dates des sélecteurs
+                DateTime dateDebut = dtpDebut.Value.Date;
+                DateTime dateFin = dtpFin.Value.Date;
+
+                if (dateDebut <= dateFin)
+                {
+                    // 4. On récupère le motif et on crée la nouvelle absence
+                    int idMotifSelectionne = (int)cbxMotif.SelectedValue;
+                    Absence absenceModifiee = new Absence(lePersonnel.Idpersonnel, dateDebut, dateFin, idMotifSelectionne);
+
+                    // 5. On envoie tout à la DAL
+                    AbsenceDal.UpdateAbsence(absenceModifiee, ancienneDateDebut);
+
+                    // 6. On rafraîchit l'affichage
+                    RemplirListeAbsences();
+                }
+                else
+                {
+                    MessageBox.Show("La date de fin ne peut pas être antérieure à la date de début.", "Erreur de saisie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une absence à modifier.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
