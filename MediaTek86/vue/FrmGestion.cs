@@ -8,6 +8,10 @@ namespace MediaTek86.vue
 {
     public partial class FrmGestion : Form
     {
+        /// <summary>
+        /// Fenêtre principale de l'application.
+        /// Permet la gestion du personnel (affichage, ajout, modification, suppression).
+        /// </summary>
         public FrmGestion()
         {
             InitializeComponent();
@@ -37,8 +41,8 @@ namespace MediaTek86.vue
 
             // On l'injecte dans la liste déroulante
             cbxService.DataSource = lesServices;
-            cbxService.DisplayMember = "Nom";      // Ce que l'utilisateur voit (ex: "Administratif")
-            cbxService.ValueMember = "Idservice";  // Ce que le code utilise (ex: "1")
+            cbxService.DisplayMember = "Nom"; 
+            cbxService.ValueMember = "Idservice"; 
         }
 
         /// <summary>

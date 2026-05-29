@@ -1,25 +1,30 @@
 ﻿using MediaTek86.dal;
-using MediaTek86.modele; // N'oublie pas cette ligne pour utiliser la classe Personnel
+using MediaTek86.modele;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace MediaTek86.vue
 {
+    /// <summary>
+    /// Fenêtre de gestion des absences pour un employé spécifique.
+    /// Permet l'affichage, l'ajout, la modification et la suppression d'absences.
+    /// </summary>
     public partial class FrmAbsences : Form
     {
-        // On crée une variable pour mémoriser l'employé sur lequel on travaille
         private Personnel lePersonnel;
 
-        // On modifie le constructeur pour qu'il reçoive l'employé
+        /// <summary>
+        /// Constructeur de la fenêtre des absences.
+        /// Initialise les composants et récupère l'employé sélectionné depuis la fenêtre principale.
+        /// </summary>
+        /// <param name="pSelectionne">L'objet Personnel représentant l'employé sélectionné.</param>
         public FrmAbsences(Personnel pSelectionne)
         {
             InitializeComponent();
 
-            // On stocke l'employé reçu dans notre variable
             this.lePersonnel = pSelectionne;
 
-            // Petit bonus : on change le titre de la fenêtre pour afficher le nom de l'employé !
             this.Text = "Gestion des absences de " + lePersonnel.Nom + " " + lePersonnel.Prenom;
         }
 
@@ -31,19 +36,15 @@ namespace MediaTek86.vue
 
         private void RemplirListeAbsences()
         {
-            // lePersonnel a été envoyé par la fenêtre principale
             List<Absence> lesAbsences = AbsenceDal.GetLesAbsences(lePersonnel.Idpersonnel);
 
-            // Adapte "dgvAbsences" selon le vrai nom de ton tableau
             dgvAbsences.DataSource = lesAbsences;
         }
 
         private void RemplirComboBoxMotifs()
         {
-            // Adapte selon ta vraie classe MotifDal
             List<Motif> lesMotifs = MotifDal.GetLesMotifs();
 
-            // Adapte "cbxMotif" selon le nom de ta liste déroulante
             cbxMotif.DataSource = lesMotifs;
             cbxMotif.DisplayMember = "Libelle";
             cbxMotif.ValueMember = "Idmotif";
@@ -51,7 +52,7 @@ namespace MediaTek86.vue
 
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            // On récupère les dates des sélecteurs (je suppose qu'ils s'appellent dtpDateDebut et dtpDateFin)
+            // On récupère les dates des sélecteurs 
             DateTime dateDebut = dtpDebut.Value.Date;
             DateTime dateFin = dtpFin.Value.Date;
 

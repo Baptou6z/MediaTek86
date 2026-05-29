@@ -25,7 +25,7 @@ namespace MediaTek86.dal
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("@login", login);
 
-            MySqlDataReader reader = null; // Déclarer ici
+            MySqlDataReader reader = null;
             try
             {
                 bdd.OpenConnection();
@@ -41,7 +41,7 @@ namespace MediaTek86.dal
             }
             catch (Exception e)
             {
-                MessageBox.Show("Erreur SQL : " + e.Message); // Utilise MessageBox pour voir l'erreur à l'écran
+                MessageBox.Show("Erreur SQL : " + e.Message);
             }
             finally
             {

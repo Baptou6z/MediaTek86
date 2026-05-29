@@ -84,7 +84,6 @@ namespace MediaTek86.bddmanager
                 }
             }
 
-            // ExecuteNonQuery est utilisé pour les requêtes qui ne renvoient pas de tableau de résultats
             command.ExecuteNonQuery();
         }
 

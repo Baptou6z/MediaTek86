@@ -6,6 +6,10 @@ using MediaTek86.bddmanager;
 
 namespace MediaTek86.dal
 {
+    /// <summary>
+    /// Classe d'accès aux données pour les objets Absence.
+    /// Gère les requêtes SQL (Sélection, Ajout, Modification, Suppression).
+    /// </summary>
     public class AbsenceDal
     {
         /// <summary>

@@ -56,7 +56,7 @@ namespace MediaTek86.dal
         {
             BddManager bdd = BddManager.GetInstance();
 
-            // La requête SQL avec des paramètres (@nom, @prenom...) pour la sécurité
+            
             string req = "INSERT INTO personnel (nom, prenom, tel, mail, idservice) VALUES (@nom, @prenom, @tel, @mail, @idservice)";
 
             // On associe les valeurs de l'objet aux paramètres SQL
@@ -70,7 +70,7 @@ namespace MediaTek86.dal
             try
             {
                 bdd.OpenConnection();
-                // On exécute la requête de mise à jour (insertion)
+                
                 bdd.ReqUpdate(req, parameters);
             }
             catch (System.Exception e)
@@ -125,7 +125,7 @@ namespace MediaTek86.dal
             parameters.Add("@tel", p.Tel);
             parameters.Add("@mail", p.Mail);
             parameters.Add("@idservice", p.Idservice);
-            parameters.Add("@id", p.Idpersonnel); // L'identifiant est crucial ici !
+            parameters.Add("@id", p.Idpersonnel);
 
             try
             {

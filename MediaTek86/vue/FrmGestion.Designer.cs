@@ -1,5 +1,9 @@
 ﻿namespace MediaTek86.vue
 {
+    /// <summary>
+    /// Fenêtre principale de l'application MediaTek86.
+    /// Permet la gestion du personnel (affichage, ajout, modification, suppression) et l'accès à la gestion des absences.
+    /// </summary>
     partial class FrmGestion
     {
         /// <summary>
@@ -228,14 +232,14 @@
         private System.Windows.Forms.ComboBox cbxService;
         private System.Windows.Forms.Button btnAbsences;
 
-        // J'ai renommé tes anciens txb en lbl (car ce sont des Labels)
+        
         private System.Windows.Forms.Label lblMail;
         private System.Windows.Forms.Label lblTel;
         private System.Windows.Forms.Label lblPrenom;
         private System.Windows.Forms.Label lblNom;
         private System.Windows.Forms.Label lblService;
 
-        // J'ai ajouté les VRAIS TextBox pour que tu puisses taper dedans
+       
         private System.Windows.Forms.TextBox txbNom;
         private System.Windows.Forms.TextBox txbPrenom;
         private System.Windows.Forms.TextBox txbTel;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using MediaTek86.modele;            // Pour utiliser la classe Responsable
-using MediaTek86.dal;               // Pour utiliser ResponsableDal
-using MediaTek86.vue;               // Pour utiliser FrmGestion
+using MediaTek86.modele;
+using MediaTek86.dal;
+using MediaTek86.vue;
 
 namespace MediaTek86
 {
@@ -39,7 +39,7 @@ namespace MediaTek86
                 }
                 else
                 {
-                    MessageBox.Show("Le mot de passe ne correspond pas. \nBase : " + resp.Pwd + "\nSaisi : " + txbPwd.Text);
+                    MessageBox.Show("Mot de passe incorrect. Veuillez réessayer.");
                 }
             }
             else
