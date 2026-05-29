@@ -82,5 +82,31 @@ namespace MediaTek86.dal
                 bdd.CloseConnection();
             }
         }
+        /// <summary>
+        /// Supprime un employé de la base de données.
+        /// </summary>
+        /// <param name="id">L'identifiant du personnel à supprimer</param>
+        public static void DeletePersonnel(int id)
+        {
+            BddManager bdd = BddManager.GetInstance();
+            string req = "DELETE FROM personnel WHERE idpersonnel = @id";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("@id", id);
+
+            try
+            {
+                bdd.OpenConnection();
+                bdd.ReqUpdate(req, parameters);
+            }
+            catch (System.Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Erreur lors de la suppression : " + e.Message);
+            }
+            finally
+            {
+                bdd.CloseConnection();
+            }
+        }
     }
 }

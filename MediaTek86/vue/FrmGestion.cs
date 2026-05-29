@@ -60,5 +60,32 @@ namespace MediaTek86.vue
                 MessageBox.Show("Veuillez au moins renseigner le nom et le prénom de l'employé.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            // 1. Vérifier qu'une ligne est bien sélectionnée dans le tableau
+            if (dgvPersonnel.SelectedRows.Count > 0)
+            {
+                // 2. Demander confirmation (très important pour le jury !)
+                DialogResult confirmation = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet employé ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmation == DialogResult.Yes)
+                {
+                    // 3. Récupérer l'ID de la ligne sélectionnée
+                    // On cast l'objet DataBoundItem en Personnel pour récupérer son ID
+                    Personnel p = (Personnel)dgvPersonnel.SelectedRows[0].DataBoundItem;
+
+                    // 4. Appeler la DAL
+                    PersonnelDal.DeletePersonnel(p.Idpersonnel);
+
+                    // 5. Rafraîchir le tableau
+                    RemplirListePersonnel();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une ligne dans le tableau.");
+            }
+        }
     }
 }
