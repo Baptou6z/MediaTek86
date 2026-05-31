@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="MediaTek86/MediaTek86.csproj" Id="70c72478-9d36-4326-9862-abd37e2826ee" />
+  <Project Path="SetupMediaTek86/SetupMediaTek86.vdproj" Type="Installer" />
 </Solution>
